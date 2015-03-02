@@ -1,6 +1,6 @@
 {
   "name": "inheritz",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Node.JS inherits replacement with support for mixins",
   "main": "./inheritz.js",
   "keywords": [
