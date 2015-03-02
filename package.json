@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "Node.JS inherits replacement with support for mixins",
   "main": "./inheritz.js",
+  "keywords": [
+    "inherits"
+  ],
   "scripts": {
     "test": "node ./test.js"
   },
