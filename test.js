@@ -1,13 +1,5 @@
-# inheritz
-
-Node.JS 'inherits' replacement that supports mixins.
-
-Call it like the normal Node.JS 'inherits' and optionally supply additional arguments
-to add as mixins.  All prototype methods of mixin constructors are added to the prototype
-of the class.
-
-```javascript
-var inherits = require('inheritz');
+var inheritz = require('./inheritz');
+var assert = require('assert');
 
 function SuperClassA() {}
 SuperClassA.prototype.methodA = function() {
@@ -34,7 +26,10 @@ inheritz(MyClass, SuperClassA, SuperClassB, SuperClassC);
 
 var myClass = new MyClass();
 
-myClass.methodA();
-myClass.methodB();
-myClass.methodC();
-```
+assert(myClass instanceof SuperClassA);
+assert(myClass.methodA() === 'A');
+assert(myClass.methodB() === 'B');
+assert(myClass.methodC() === 'C');
+
+console.log('ok');
+
