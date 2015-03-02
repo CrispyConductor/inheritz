@@ -30,7 +30,7 @@ function MyClass() {
 	SuperClassC.call(this);
 }
 
-inheritz(MyClass, SuperClassA, SuperClassB, SuperClassC);
+inherits(MyClass, SuperClassA, SuperClassB, SuperClassC);
 
 var myClass = new MyClass();
 
