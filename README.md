@@ -6,6 +6,10 @@ Call it like the normal Node.JS 'inherits' and optionally supply additional argu
 to add as mixins.  All prototype methods of mixin constructors are added to the prototype
 of the class.
 
+If inheritz is called on a constructor that already inherits from something (ie, it already
+has prototype methods), then all parameters are added as mixins.  This makes it useful for
+adding mixins to ES6 classes.
+
 ```javascript
 var inherits = require('inheritz');
 

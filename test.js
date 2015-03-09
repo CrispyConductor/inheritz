@@ -1,35 +1,75 @@
 var inheritz = require('./inheritz');
+var inherits = require('util').inherits;
 var assert = require('assert');
 
-function SuperClassA() {}
-SuperClassA.prototype.methodA = function() {
-	return 'A';
-};
+function testOne() {
 
-function SuperClassB() {}
-SuperClassB.prototype.methodB = function() {
-	return 'B';
-};
+	function SuperClassA() {}
+	SuperClassA.prototype.methodA = function() {
+		return 'A';
+	};
 
-function SuperClassC() {}
-SuperClassC.prototype.methodC = function() {
-	return 'C';
-};
+	function SuperClassB() {}
+	SuperClassB.prototype.methodB = function() {
+		return 'B';
+	};
 
-function MyClass() {
-	SuperClassA.call(this);
-	SuperClassB.call(this);
-	SuperClassC.call(this);
+	function SuperClassC() {}
+	SuperClassC.prototype.methodC = function() {
+		return 'C';
+	};
+
+	function MyClass() {
+		SuperClassA.call(this);
+		SuperClassB.call(this);
+		SuperClassC.call(this);
+	}
+
+	inheritz(MyClass, SuperClassA, SuperClassB, SuperClassC);
+
+	var myClass = new MyClass();
+
+	assert(myClass instanceof SuperClassA);
+	assert(myClass.methodA() === 'A');
+	assert(myClass.methodB() === 'B');
+	assert(myClass.methodC() === 'C');
+
 }
 
-inheritz(MyClass, SuperClassA, SuperClassB, SuperClassC);
+function testTwo() {
 
-var myClass = new MyClass();
+	function SuperClassA() {}
+	SuperClassA.prototype.methodA = function() {
+		return 'A';
+	};
 
-assert(myClass instanceof SuperClassA);
-assert(myClass.methodA() === 'A');
-assert(myClass.methodB() === 'B');
-assert(myClass.methodC() === 'C');
+	function SuperClassB() {}
+	SuperClassB.prototype.methodB = function() {
+		return 'B';
+	};
 
+	function SuperClassC() {}
+	SuperClassC.prototype.methodC = function() {
+		return 'C';
+	};
+
+	function MyClass() {
+		SuperClassA.call(this);
+		SuperClassB.call(this);
+		SuperClassC.call(this);
+	}
+	inherits(MyClass, SuperClassA);
+	inheritz(MyClass, SuperClassB, SuperClassC);
+
+	var myClass = new MyClass();
+
+	assert(myClass instanceof SuperClassA);
+	assert(myClass.methodA() === 'A');
+	assert(myClass.methodB() === 'B');
+	assert(myClass.methodC() === 'C');
+}
+
+testOne();
+testTwo();
 console.log('ok');
 

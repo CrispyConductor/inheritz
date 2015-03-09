@@ -1,11 +1,28 @@
 var inherits = require('inherits');
 
+function alreadyInherits(ctor) {
+	var hasPrototypeProperties = false;
+	var key;
+	for(key in ctor.prototype) {
+		hasPrototypeProperties = true;
+		break;
+	}
+	return !!hasPrototypeProperties;
+}
+
 function inheritz(ctor, superCtor/*, mixinCtor, ... */) {
 	var i, key;
-	inherits(ctor, superCtor);
-	for(i = 2; i < arguments.length; i++) {
+	i = 2;
+	if(alreadyInherits(ctor)) {
+		i = 1;
+	} else {
+		inherits(ctor, superCtor);
+	}
+	for(; i < arguments.length; i++) {
 		for(key in arguments[i].prototype) {
-			ctor.prototype[key] = arguments[i].prototype[key];
+			if(ctor.prototype[key] === undefined) {
+				ctor.prototype[key] = arguments[i].prototype[key];
+			}
 		}
 	}
 }
