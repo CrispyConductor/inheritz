@@ -42,3 +42,62 @@ myClass.methodA();
 myClass.methodB();
 myClass.methodC();
 ```
+
+By default, if a method on a mixin conflicts with an existing method already belonging
+to the prototype, the mixin will yield to the existing method.
+
+```javascript
+var inherits = require('inheritz');
+
+function SuperClassA() {}
+SuperClassA.prototype.method = function() {
+	return 'A';
+};
+
+function SuperClassB() {}
+SuperClassB.prototype.method = function() {
+	return 'B';
+};
+
+function MyClass() {
+	SuperClassA.call(this);
+	SuperClassB.call(this);
+}
+
+inherits(MyClass, SuperClassA);
+inherits(MyClass, SuperClassB);
+
+var myClass = new MyClass();
+
+console.log(myClass.method()); // prints 'A'
+```
+
+However, if you supply a boolean `true` as the first parameter to inheritz, this behavior
+is reversed:
+
+```javascript
+var inherits = require('inheritz');
+
+function SuperClassA() {}
+SuperClassA.prototype.method = function() {
+	return 'A';
+};
+
+function SuperClassB() {}
+SuperClassB.prototype.method = function() {
+	return 'B';
+};
+
+function MyClass() {
+	SuperClassA.call(this);
+	SuperClassB.call(this);
+}
+
+inherits(MyClass, SuperClassA);
+inherits(true, MyClass, SuperClassB);
+
+var myClass = new MyClass();
+
+console.log(myClass.method()); // prints 'B'
+```
+
